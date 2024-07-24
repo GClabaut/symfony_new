@@ -6,9 +6,17 @@ use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\TaskRepository;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\{Delete, Get, GetCollection, Patch, Post, Put};
 
 #[ORM\Entity(repositoryClass: TaskRepository::class)]
 #[ApiResource]
+#[GetCollection]
+#[Get]
+#[Put(security:"is_granted('ROLE_ADMIN')")]
+#[Post(security:"is_granted('ROLE_ADMIN')")]
+#[Patch(security:"is_granted('ROLE_ADMIN')")]
+#[Delete(security:"is_granted('ROLE_ADMIN')")]
+
 class Task
 {
     #[ORM\Id]
